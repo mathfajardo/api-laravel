@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use Illuminate\Support\Facades\Validator;
 use App\Models\Jogadores;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\JogadoresResource;
+use App\Traits\HttpResponses;
 
 class JogadoresController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
@@ -16,20 +19,23 @@ class JogadoresController extends Controller
     {
         return JogadoresResource::collection(Jogadores::all());
     }
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nome_jogador' => 'required', 
+            'equipe' => 'required',
+            'gols' => 'required',
+            'assistencias' => 'required',
+            'partidas' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return $this->error('data invalida', 422, $validator->errors());
+        }
     }
 
     /**
@@ -38,14 +44,6 @@ class JogadoresController extends Controller
     public function show(string $id)
     {
         return new JogadoresResource(Jogadores::where('id', $id)->first());
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
