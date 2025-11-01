@@ -9,6 +9,8 @@ Route::prefix('v1')->group(function (){
     Route::get('/jogadores', [JogadoresController::class, 'index']);
     Route::get('/jogadores/{jogador}', [JogadoresController::class, 'show']);
     Route::post('/jogadores', [JogadoresController::class, 'store']);
+    Route::put('/jogadores/{jogador}', [JogadoresController::class, 'update']);
+    Route::delete('/jogadores/{jogador}', [JogadoresController::class, 'destroy']);
 });
 
 

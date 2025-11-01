@@ -36,6 +36,13 @@ class JogadoresController extends Controller
         if($validator->fails()) {
             return $this->error('data invalida', 422, $validator->errors());
         }
+
+        $created = Jogadores::create($validator->validated());
+
+        if ($created) {
+            return $this->response('Jogador adicionado', 200, $created);
+        }
+        return $this->error('Jogador não foi criado', 400);
     }
 
     /**
@@ -51,14 +58,45 @@ class JogadoresController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nome_jogador' => 'required', 
+            'equipe' => 'required',
+            'gols' => 'required',
+            'assistencias' => 'required',
+            'partidas' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->error('validacao deu erro', 422, $validator->errors());
+        }
+
+        $validated = $validator->validated();
+
+        $update = Jogadores::find($id)->update([
+            'nome_jogador' => $validated['nome_jogador'], 
+            'equipe' => $validated['equipe'],
+            'gols' => $validated['gols'],
+            'assistencias' => $validated['assistencias'],
+            'partidas' => $validated['partidas']
+        ]);
+
+        if ($update) {
+            return $this->response('Jogador atualizado', 200, $request->all());
+        }
+
+        return $this->error('Jogador não atualizado', 400);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jogadores $jogador)
     {
-        //
+        $deleted = $jogador->delete();
+
+        if ($deleted) {
+            return $this->response('Jogador deletado', 200);
+        }
+        return $this->error('Jogador não deletado', 400); 
     }
 }
