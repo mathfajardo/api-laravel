@@ -17,7 +17,9 @@ class JogadoresResource extends JsonResource
         return [
             'nome_jogador' => $this->nome_jogador,
             'equipe' => $this->equipe,
-            'nome_equipe' =>$this->nome_jogador . " " . $this->equipe
+            'gols' => $this->gols,
+            'assistencias' => $this->assistencias,
+            'partidas' => $this->partidas
         ];
     }
 }

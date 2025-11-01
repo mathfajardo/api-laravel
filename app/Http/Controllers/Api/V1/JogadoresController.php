@@ -15,9 +15,10 @@ class JogadoresController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return JogadoresResource::collection(Jogadores::all());
+        // return JogadoresResource::collection(Jogadores::all());
+        return (new Jogadores())->filter($request);
     }
 
     /**
