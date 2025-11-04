@@ -20,7 +20,6 @@ Route::prefix('v1')->group(function (){
 });
 
 
-//6|ke0Dg80l4BuXwvPpmtnfVGKryngvsRP3g3Amgde99550e559
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
