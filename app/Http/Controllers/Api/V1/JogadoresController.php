@@ -27,10 +27,6 @@ class JogadoresController extends Controller
     public function store(Request $request)
     {
 
-        if(!auth()->user()->tokenCan('user-store')) {
-            return $this->error('Unauthorized', 403);
-        }
-
         $validator = Validator::make($request->all(), [
             'nome_jogador' => 'required', 
             'equipe' => 'required',
