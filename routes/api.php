@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\JogadoresController;
+use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TesteController;
 use Illuminate\Http\Request;
@@ -15,11 +16,6 @@ Route::prefix('v1')->group(function (){
     Route::post('/jogadores', [JogadoresController::class, 'store'])->middleware('auth:sanctum');
     Route::put('/jogadores/{jogador}', [JogadoresController::class, 'update'])->middleware('auth:sanctum');
     Route::delete('/jogadores/{jogador}', [JogadoresController::class, 'destroy'])->middleware('auth:sanctum');
-    
-    Route::get('/teste', [TesteController::class, 'index'])->middleware('auth:sanctum');
+    Route::post('/user', [UserController::class, "store"]);
 });
 
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
